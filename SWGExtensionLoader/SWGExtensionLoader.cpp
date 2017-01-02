@@ -54,7 +54,7 @@ void main()
 		GetWindowThreadProcessId(hWnd, &proc_id);
 
 		char buf[MAX_PATH] = { 0 };
-		GetFullPathName("SWGExtensions.dll", MAX_PATH, buf, NULL);
+		GetFullPathName("SWGCommandExtension.dll", MAX_PATH, buf, NULL);
 
 		// Inject our main dll 
 		if (!Inject(proc_id, buf))

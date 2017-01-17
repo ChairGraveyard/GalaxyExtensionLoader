@@ -1,3 +1,3 @@
-SWGExtensionLoader
+#GalaxyExtensionLoader
 
-Loads Extension DLLs (e.g [SWG Command Extension](https://github.com/ChairGraveyard/SWGCommandExtension)) into the Star Wars Galaxies client.
+Loads Extension DLLs (e.g [GalaxyExtender](https://github.com/ChairGraveyard/GalaxyExtender)) into the Star Wars Galaxies client.

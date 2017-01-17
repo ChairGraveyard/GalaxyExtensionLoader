@@ -73,7 +73,7 @@ BOOL Inject(DWORD pId, const char* DllName)
 	char buf[50] = { 0 };
 	LPVOID RemoteString, LoadLibAddy;
 
-	if (!pId)
+	if (pId == NULL)
 		return false;
 
 	Proc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pId);

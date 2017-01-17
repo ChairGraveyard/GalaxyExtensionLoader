@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebugLogging.h" />
+    <ClInclude Include="json.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

@@ -7,20 +7,42 @@
 
 #include "Memory.h"
 
+#include "json.h"
+
 #include <windows.h>
 #include <shlwapi.h> 
 #include <conio.h>
 #include <stdlib.h>
-
+#include <fstream>
+#include <string>
 
 using namespace std;
-
+using json = nlohmann::json;
 
 void main()
 {
+	ifstream configFile;
+	
+	configFile.open("config.json");
+
+	bool foundConfig = configFile.is_open();
+
+	json config;
+
+	string windowName = "SwgClient";
+	string dllName = "SWGCommandExtension.dll";
+
+	if (foundConfig)
+	{
+		configFile >> config;
+
+		windowName = config["windowName"].get<string>();
+		dllName = config["dllName"].get<string>();
+	}
+
 	DEBUG_LOG("Waiting for SWGEmu.exe...." << endl);
 
-	HWND hWnd = FindWindow(0, "SwgClient");
+	HWND hWnd = FindWindow(0, windowName.c_str());
 	HANDLE hProcess = NULL;
 	DWORD proc_id;
 
@@ -40,7 +62,7 @@ void main()
 		DEBUG_LOG("Finding SWG Window....");
 
 		// Try to find SWG window.
-		hWnd = FindWindow(0, "SwgClient");
+		hWnd = FindWindow(0, windowName.c_str());
 
 		if (counter > 1)
 			Sleep(500);
@@ -54,7 +76,7 @@ void main()
 		GetWindowThreadProcessId(hWnd, &proc_id);
 
 		char buf[MAX_PATH] = { 0 };
-		GetFullPathName("SWGCommandExtension.dll", MAX_PATH, buf, NULL);
+		GetFullPathName(dllName.c_str(), MAX_PATH, buf, NULL);
 
 		// Inject our main dll 
 		if (!Inject(proc_id, buf))
